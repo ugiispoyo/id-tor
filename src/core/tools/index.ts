@@ -7,7 +7,7 @@ export default class Tool {
         // icon.renderIcon
     }
 
-    renderTools(): HTMLDivElement {
+    renderToolbar(): HTMLDivElement {
         const _toolbar = document.createElement('div') as HTMLDivElement;
         _toolbar.setAttribute('class', '_toolbar_id_tor')
         

@@ -38,7 +38,7 @@ export default class Core {
         }
         
         /* Render toolbar */
-        _wrapper.appendChild(tools.renderTools());
+        _wrapper.appendChild(tools.renderToolbar());
 
         const elm = document.getElementById(this.name)
         elm.appendChild(_wrapper)
