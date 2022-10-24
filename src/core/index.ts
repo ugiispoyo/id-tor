@@ -1,9 +1,8 @@
 import './../assets/styles/styles.scss'
 import { IConfig } from './interfaces';
 
-// import Tools from './tools/index'
-
-// const tools = new Tools();
+import Tools from './tools/index'
+const tools = new Tools();
 
 export default class Core {
     _name: string;
@@ -26,19 +25,22 @@ export default class Core {
     }
 
     renderIdTor(): void {
-        const wrapper = document.createElement('div') as HTMLDivElement;
-        wrapper.setAttribute('class', '_wrapper_id_tor');
+        const _wrapper = document.createElement('div') as HTMLDivElement;
+       _wrapper.setAttribute('class', '_wrapper_id_tor');
 
         /* Set custom atribute style */
         if(this.config) {
             Object.entries(this.config).forEach(([key, val]) => {
                 if(['width', 'height'].includes(key)) {
-                    wrapper.style.setProperty(key, val)
+                    _wrapper.style.setProperty(key, val)
                 }
             }) 
         }
         
+        /* Render toolbar */
+        _wrapper.appendChild(tools.renderTools());
+
         const elm = document.getElementById(this.name)
-        elm.appendChild(wrapper)
+        elm.appendChild(_wrapper)
     }
 }   
