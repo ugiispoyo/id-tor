@@ -1,14 +1,14 @@
-import './../assets/styles/styles.scss'
-import { IConfig } from './interfaces';
+import "./../assets/styles/styles.scss";
+import { IConfig } from "./interfaces";
 
-import Tools from './tools/index'
+import Tools from "./tools/index";
 const tools = new Tools();
 
 export default class Core {
     _name: string;
     _config: IConfig;
 
-    /* Set name */
+    /* Setter getter name */
     set name(name: string) {
         this._name = name;
     }
@@ -16,31 +16,49 @@ export default class Core {
         return this._name;
     }
 
-    /* Set config */
+    /* Setter getter config */
     set config(config: IConfig) {
-        this._config = config
+        this._config = config;
     }
     get config(): IConfig {
-        return this._config
+        return this._config;
     }
 
     renderIdTor(): void {
-        const _wrapper = document.createElement('div') as HTMLDivElement;
-       _wrapper.setAttribute('class', '_wrapper_id_tor');
+        const _wrapper = document.createElement("div") as HTMLDivElement;
+        _wrapper.setAttribute("class", "_wrapper_id_tor");
 
         /* Set custom atribute style */
-        if(this.config) {
+        if (this.config) {
             Object.entries(this.config).forEach(([key, val]) => {
-                if(['width', 'height'].includes(key)) {
-                    _wrapper.style.setProperty(key, val)
+                if (["width", "height"].includes(key)) {
+                    if (key === "height") {
+                        _wrapper.style.setProperty("min-height", val);
+                    } else {
+                        _wrapper.style.setProperty(key, val);
+                    }
                 }
-            }) 
+            });
         }
-        
+
         /* Render toolbar */
+        tools.toolbar = this.config?.toolbar;
         _wrapper.appendChild(tools.renderToolbar());
 
-        const elm = document.getElementById(this.name)
-        elm.appendChild(_wrapper)
+        /* render editor */
+        const _editor = document.createElement("div") as HTMLDivElement;
+        _editor.setAttribute("class", "_editor_id_tor");
+        _editor.setAttribute("contenteditable", "true");
+        _editor.style.setProperty("width", "100%");
+        _editor.style.setProperty(
+            "height",
+            this.config?.height
+                ? `${this.config?.height}px`
+                : "350px"
+        );
+        _wrapper.appendChild(_editor);
+
+        const elm = document.getElementById(this.name);
+        elm.appendChild(_wrapper);
     }
-}   
+}
