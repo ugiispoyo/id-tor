@@ -33,9 +33,9 @@ export default class Core {
             Object.entries(this.config).forEach(([key, val]) => {
                 if (["width", "height"].includes(key)) {
                     if (key === "height") {
-                        _wrapper.style.setProperty("min-height", val);
+                        _wrapper.style.setProperty("min-height", `${val}px`);
                     } else {
-                        _wrapper.style.setProperty(key, val);
+                        _wrapper.style.setProperty(key, `${val}px`);
                     }
                 }
             });
@@ -47,14 +47,13 @@ export default class Core {
 
         /* render editor */
         const _editor = document.createElement("div") as HTMLDivElement;
+        _editor.setAttribute('id', `_editor_${this.name}`)
         _editor.setAttribute("class", "_editor_id_tor");
         _editor.setAttribute("contenteditable", "true");
         _editor.style.setProperty("width", "100%");
         _editor.style.setProperty(
             "height",
-            this.config?.height
-                ? `${this.config?.height}px`
-                : "350px"
+            this.config?.height ? `${this.config?.height}px` : "350px"
         );
         _wrapper.appendChild(_editor);
 
